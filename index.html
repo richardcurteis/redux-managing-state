@@ -303,6 +303,28 @@
 
         class App extends React.Component {
 
+            const Context = React.createContet()
+
+            class ConnectedApp extends React.Component {
+                render() {
+                    return (
+                        <Context.Consumer>
+                            {(store) => (
+                                <App store={store}/>
+                            )}
+                        </Context.Consumer>
+                    )
+                }
+            }
+
+            class Provider extends React.Component {
+                render() {
+                    <Context.Provider value={this.props.store}>
+                        { this.props.children }
+                    </Context.Provider>
+                }
+            }
+
             componentDidMount () {
                 const { store } = this.props
                 store.dispatch(handleIitialData())
@@ -317,15 +339,17 @@
 
                 return(
                     <div>
-                        < Todos todos={todos} store={this.props.store}/>
-                        < Goals goals={goals} store={this.props.store}/>
+                        < Todos todos={todos} store={this.props.store} />
+                        < Goals goals={goals} store={this.props.store} />
                     </div>
-                )
+s                )
             }
         }
 
         ReactDOM.render(
-            <App store={store}/>,
+            <Provider store={store}>
+                <App/>
+            </Provider>,
             document.getElementById('app')
         )
     </script>
