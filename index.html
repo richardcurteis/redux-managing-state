@@ -301,9 +301,19 @@
         }
     }
 
+    class ConnectedGoals extends React.Component {
+
+        render() {
+            return(
+                <Context.Consumer>
+                </Context.Consumer>
+            )
+        }
+    }
+
         class App extends React.Component {
 
-            const Context = React.createContet()
+            const Context = React.createContext()            
 
             class ConnectedApp extends React.Component {
                 render() {
@@ -325,6 +335,7 @@
                 }
             }
 
+
             componentDidMount () {
                 const { store } = this.props
                 store.dispatch(handleIitialData())
@@ -335,14 +346,14 @@
                 const { store } = this.props
                 const { todos, goals, loading } = store.getState()
 
-                if(loading) { return <h3>Loading</h3>}
+                if(loading) { return <h3>Loading</h3> }
 
                 return(
                     <div>
                         < Todos todos={todos} store={this.props.store} />
                         < Goals goals={goals} store={this.props.store} />
                     </div>
-s                )
+                )
             }
         }
 
